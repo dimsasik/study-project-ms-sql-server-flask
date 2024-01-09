@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Title Here</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .table-bordered {
+            border-width: 3px;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-blue-500 py-2 text-white flex justify-between items-center px-8">
+        <div>
+            <a class="text-white font-medium rounded-md pl-3 pr-3 pb-1 pt-1 hover:bg-blue-600" href="/user_account">Назад</a>
+        </div>
+        <div>
+            <p id="hellouser" class="text-white font-medium"></p>
+        </div>
+        <button id="exitButton" class="text-white font-medium rounded-md pl-3 pr-3 pb-1 pt-1 hover:bg-blue-600">Выйти</button>
+    </div>
+
+    <div class="container mx-auto mt-8">
+        <table class="min-w-full border-collapse border border-blue-500 table-bordered">
+            <thead>
+                <tr>
+                    {% for header in headers %}
+                    <th class="border border-blue-500 text-blue-500">{{ header }}</th>
+                    {% endfor %}
+                </tr>
+
+            </thead>
+            <tbody id="tbody">
+                {% for row in data %}
+                <tr id="{{ row.values()|list|first }}">
+                    {% for key, value in row.items() %}
+                    <td id="{{key}}" class="text-center border border-blue-500 p-3">{{ value }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    {% if user_information %}
+    <div id="delete-update" class="max-w-sm my-10 mx-auto pt-4 pb-3">
+        <div id="div-delete-update" class="w-300 mx-auto border-2 border-blue-500 bg-white rounded-lg overflow-hidden shadow-md flex flex-col items-center">
+            <p class="py-3 font-medium text-center">Меню обновления / удаления</p>
+            <form id="form-delete-update" class="flex flex-col items-center">
+                {%for header in headers%}
+                <div class="mb-4">
+                    <label for="{{ header }}" class="block text-gray-700">{{header}}:</label>
+                    <input type="text" id="{{header}}" name="{{header}}" placeholder="Введите {{header}}"
+                        class="w-full px-4 py-2 border rounded-md border-blue-500 focus:outline-none focus:border-blue-500">
+                </div>
+                {% endfor %}
+            </form>
+            <button id="delete-button" class="my-5 p-3 w-4/5 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600">Удалить</button>
+            <button id="update-button" class="mb-5 p-3 w-4/5 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600">Обновить</button>
+            <button id="new-data-button" class="mb-5 p-3 w-4/5 bg-blue-500 text-white font-medium rounded-md hover:bg-blue-600">Добавить</button>
+            <div id="error-2"
+                class="hide mb-5 p-3 w-4/5 bg-green-500 text-white font-medium rounded-md text-center"></div>
+        </div>
+
+    </div>
+    {% endif %}
+
+    <script>
+        // JavaScript код здесь...
+    </script>
+</body>
+
+</html>
